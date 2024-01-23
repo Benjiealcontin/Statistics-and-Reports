@@ -32,20 +32,23 @@ public class StudentController {
         return ResponseEntity.ok(studentList);
     }
 
+    //Report for All Students
     @GetMapping("/report")
-    public String generateReport() throws FileNotFoundException, JRException {
+    public String generateReportForAllStudent() throws FileNotFoundException, JRException {
         return studentService.exportReportAllStudent();
     }
 
+    // Report for Student by Id
     @GetMapping("/report/{id}")
-    public String generateReport2(@PathVariable long id) throws FileNotFoundException, JRException {
+    public String generateReportForSpecificStudent(@PathVariable long id) throws FileNotFoundException, JRException {
         return studentService.exportReportById(id);
     }
 
-    @GetMapping("/report")
-    public String generateReport(@RequestParam List<Long> studentIds) {
+    //Report for Students by Ids
+    @GetMapping("/report/student")
+    public String generateReportForSelectiveStudent(@RequestParam List<Long> Ids) {
         try {
-            return studentService.exportReportByIds(studentIds);
+            return studentService.exportReportByIds(Ids);
         } catch (FileNotFoundException | JRException e) {
             e.printStackTrace(); // Handle the exception appropriately
             return "Error generating report.";
